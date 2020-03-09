@@ -1,8 +1,15 @@
+.search-container{
+    display: flex;
+    padding: 3rem 0;
+    width: 900px;
+    justify-content: flex-end;
+}
+
 .search{
     background: transparent;
     border: none;
     border-bottom: 2px solid #fff; 
-    width: 400px;
+    width: 50%;
     color: #fff;
     padding: 1rem;
     font-size: 1.5rem;
@@ -10,4 +17,14 @@
 
 .search:focus{
     outline: none;
+}
+
+@media screen and (max-width: 768px){
+    .search-container{
+        width: 100%;
+    }
+    .search{
+        width: 80%;
+        margin: auto;
+    }
 }
