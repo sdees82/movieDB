@@ -66,7 +66,7 @@ class App extends React.Component{
 
   submitSearch = (e) =>{
     if(e.charCode ===  13){
-      fetch(`http://www.omdbapi.com/?apikey=${omdbapi}&t=${this.state.search}`)
+      fetch(`https://www.omdbapi.com/?apikey=${omdbapi}&t=${this.state.search}`)
       .then(response=> response.json())
       .then(data => {
         data.Error === "Movie not found!" ? this.setState({error_message: "Movie not found!"}) : (
