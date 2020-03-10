@@ -24,7 +24,8 @@ class App extends React.Component{
       runtime: 0,
       revenue: 0,
       vote_average: 0,
-      imdb_id: "tt1411697"
+      imdb_id: "tt1411697",
+      error_message: ""
     }
   }
 
@@ -32,7 +33,7 @@ class App extends React.Component{
     fetch(`https://api.themoviedb.org/3/movie/${this.state.imdb_id}?api_key=f15acbad2119d7337819f3c8f85e915c&language=en-US`)
     .then(response => response.json())
     .then(data =>{
-      console.log(data)
+      data.status_code === 34 ? this.setState({error_message: "Movie not found!"}) : (
       this.setState({backdrop_path: data.backdrop_path,
         poster_path: data.poster_path, 
         title: data.title, 
@@ -45,7 +46,8 @@ class App extends React.Component{
         revenue: CalculateRevenue(data.revenue),
         vote_average: data.vote_average
         })
-    }) 
+    );
+    }); 
   }
 
   componentDidMount(){
@@ -53,6 +55,10 @@ class App extends React.Component{
   }
 
   handleSearch = (e) =>{
+    if(this.state.error_message.length > 0){
+      this.setState({error_message: ""});
+    }
+
     this.setState({search: e.target.value === " " ? "+" : e.target.value});
   }
 
@@ -60,8 +66,9 @@ class App extends React.Component{
     if(e.charCode ===  13){
       fetch(`http://www.omdbapi.com/?apikey=4c563184&t=${this.state.search}`)
       .then(response=> response.json())
-      .then(data => {this.setState({imdb_id: data.imdb_id})
-                    //  this.getMovieData();
+      .then(data => {
+        data.Error === "Movie not found!" ? this.setState({error_message: "Movie not found!"}) : (
+        this.setState({imdb_id: data.imdbID}, ()=> this.getMovieData()));
     })
     }
     
@@ -72,7 +79,11 @@ class App extends React.Component{
       <div className="App">
         <header className="App-header" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original/${this.state.backdrop_path})`}}>
           <div className="overlay">
-         <Search handleSearch={this.handleSearch} submitSearch={this.submitSearch}/>
+          <div className="search-container-main">
+            <h1 class="error-message">{this.state.error_message.toUpperCase()}</h1>
+            <Search handleSearch={this.handleSearch} submitSearch={this.submitSearch}/>
+          </div>
+         
          <Card poster_path={this.state.poster_path} 
                title={this.state.title} 
                overview={this.state.overview} 

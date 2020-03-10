@@ -27,11 +27,36 @@
   justify-content: flex-start;
 }
 
-@media screen and (max-width: 768px){
+.error-message{
+  color: #D900FF;;
+}
+
+.search-container-main{
+  display: flex;
+  width: 1000px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.search-container-main h1{
+  margin: 0;
+}
+@media screen and (max-width: 998px){
   .App{
-    min-height: 100vh;
+    height: 100vh;
   }
   .App-header{
     background-size: auto;
+  }
+
+  .search-container-main{
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-container-main h1{
+    font-size: 1rem;
   }
 }
