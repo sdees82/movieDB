@@ -26,7 +26,7 @@ class App extends React.Component{
       runtime: 0,
       revenue: 0,
       vote_average: 0,
-      imdb_id: "tt1411697",
+      imdb_id: "tt4154796",
       error_message: ""
     }
   }
