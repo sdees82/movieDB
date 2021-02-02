@@ -24,6 +24,9 @@ export const CalculateRevenue = (revenue) =>{
                 calculatedRevenue.splice(5, 0, ",");
                 calculatedRevenue.splice(9, 0, ",");
                 break;
+
+        default:  calculatedRevenue.splice(2, 0, ",");
+                  break;
       }
       return calculatedRevenue;
 }
